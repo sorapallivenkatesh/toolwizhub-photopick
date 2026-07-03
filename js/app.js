@@ -89,6 +89,7 @@ const DIR_INPUT = "webkitdirectory" in document.createElement("input");
 const dirInput = $("#dir-input");
 
 $("#pick-btn").addEventListener("click", openFolder);
+$("#pick-btn-2")?.addEventListener("click", openFolder);
 dirInput.addEventListener("change", () => {
   if (dirInput.files && dirInput.files.length) openViaInput(dirInput.files);
   dirInput.value = ""; // allow re-picking the same folder later
@@ -788,6 +789,7 @@ lb.stage.addEventListener("pointerdown", (e) => {
 
 /* ---- keyboard nav on the grid ---- */
 els.grid.addEventListener("keydown", (e) => {
+  if (!lb.el.hidden) return;            // lightbox is open — its own keys handle nav/pick
   if (!state.view.length) return;
   const cols = gridCols();
   let c = state.cursor < 0 ? 0 : state.cursor;
