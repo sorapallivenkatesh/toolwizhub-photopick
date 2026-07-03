@@ -33,7 +33,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/styles.css?v=20260704m" />
+  <link rel="stylesheet" href="css/styles.css?v=20260704r" />
   <script>try { if (sessionStorage.getItem("photopick:splashed")) document.documentElement.classList.add("no-splash"); } catch (e) {}</script>
 </head>
 <body>
@@ -59,6 +59,9 @@
         <a class="nav__link" href="#how">How it works</a>
         <a class="nav__link" href="#security">Security</a>
         <span class="nav__pill">🔒 100% Local</span>
+        <a class="nav__icon" href="https://github.com/sorapallivenkatesh/toolwizhub-photopick" target="_blank" rel="noopener" title="View on GitHub" aria-label="View on GitHub">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M12 .5C5.37.5 0 5.87 0 12.5c0 5.3 3.44 9.8 8.21 11.39.6.11.82-.26.82-.58l-.01-2.05c-3.34.73-4.04-1.61-4.04-1.61-.55-1.39-1.34-1.76-1.34-1.76-1.09-.75.08-.73.08-.73 1.2.09 1.84 1.24 1.84 1.24 1.07 1.83 2.81 1.3 3.5.99.11-.78.42-1.3.76-1.6-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.13-.3-.54-1.52.11-3.18 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 0 1 6 0c2.29-1.55 3.3-1.23 3.3-1.23.65 1.66.24 2.88.12 3.18.77.84 1.23 1.91 1.23 3.22 0 4.61-2.81 5.62-5.49 5.92.43.37.81 1.1.81 2.22l-.01 3.29c0 .32.21.7.82.58A12.01 12.01 0 0 0 24 12.5C24 5.87 18.63.5 12 .5z"/></svg>
+        </a>
       </nav>
     </header>
 
@@ -71,6 +74,7 @@
     <!-- ===== LANDING / WELCOME ===== -->
     <section id="picker">
       <section class="hero">
+        <span class="hero__eyebrow">✦ Find your best shots, fast.</span>
         <h1 class="hero__title">Cull a <span class="grad grad--warm">shoot</span><br>in <span class="grad grad--cool">minutes.</span></h1>
         <p class="hero__sub">Open any folder, star the keepers, skip the rest — all in your browser. No upload, no import, no waiting.</p>
         <div class="hero__cta">
@@ -103,8 +107,67 @@
       </section>
 
       <!-- product preview -->
-      <section class="preview" id="how">
-        <img class="preview__img" src="assets/preview.jpg?v=20260704m" alt="PhotoPick screens — welcome, gallery grid, lightbox, and empty state" width="1721" height="914" loading="lazy" />
+      <section class="preview">
+        <img class="preview__img" src="assets/preview.jpg?v=20260704r" alt="PhotoPick screens — landing, workbench grid, lightbox, and empty state" width="1672" height="941" loading="lazy" />
+      </section>
+
+      <!-- how it works -->
+      <section class="band" id="how">
+        <div class="band__head">
+          <span class="eyebrow">How it works</span>
+          <h2 class="band__title">Three steps. No import, no waiting.</h2>
+          <p class="band__sub">From memory card to shortlist in the time it used to take just to import.</p>
+        </div>
+        <div class="steps">
+          <div class="step"><span class="step__n">1</span><h3>Open a folder</h3><p>Point PhotoPick at any folder — an SD card, external drive, or your machine. It reads it locally, right in your browser.</p></div>
+          <div class="step"><span class="step__n">2</span><h3>Star your keepers</h3><p>Scroll the grid or open the lightbox and tap ★ (or press <kbd>S</kbd>) on the shots worth keeping. Filter by photos, video, RAW, or picks.</p></div>
+          <div class="step"><span class="step__n">3</span><h3>Export or deliver</h3><p>Save a filename list, download the picks as a ZIP, or copy &amp; move them straight into a new folder — all on your device.</p></div>
+        </div>
+      </section>
+
+      <!-- capabilities -->
+      <section class="band">
+        <div class="band__head">
+          <span class="eyebrow">Built for real shoots</span>
+          <h2 class="band__title">Everything you need to <span class="grad grad--warm">cull</span>, nothing you don’t.</h2>
+        </div>
+        <div class="caps">
+          <div class="cap"><span class="cap__ico">🖼️</span><h4>RAW &amp; HEIC previews</h4><p>Renders embedded previews from CR2/CR3, NEF, ARW, DNG and more — plus HEIC/HEIF decoded in-browser.</p></div>
+          <div class="cap"><span class="cap__ico">🎬</span><h4>Video thumbnails</h4><p>Grabs a frame from MP4, MOV, MKV and other clips so your video takes sit right beside the stills.</p></div>
+          <div class="cap"><span class="cap__ico">⚡</span><h4>Instant filter &amp; sort</h4><p>Jump between photos, video, RAW and picks; sort by capture time, name, size or date. Search by filename.</p></div>
+          <div class="cap"><span class="cap__ico">🔍</span><h4>Zoom &amp; inspect</h4><p>Pinch, scroll or double-click to zoom into the lightbox and check focus — with full EXIF on the side.</p></div>
+          <div class="cap"><span class="cap__ico">⌨️</span><h4>Keyboard-first</h4><p>Arrow through the grid, <kbd>Space</kbd>/<kbd>S</kbd> to pick, <kbd>Enter</kbd> to open, <kbd>+</kbd>/<kbd>−</kbd> to zoom. Cull without the mouse.</p></div>
+          <div class="cap"><span class="cap__ico">📦</span><h4>Export your way</h4><p>Filename list (.txt/.csv), a zipped bundle of picks, or a direct copy/move into a delivery folder.</p></div>
+        </div>
+      </section>
+
+      <!-- supported formats -->
+      <section class="band formats">
+        <div class="band__head">
+          <span class="eyebrow">Formats</span>
+          <h2 class="band__title">Opens what your camera shoots.</h2>
+        </div>
+        <div class="fmt">
+          <div class="fmt__row"><b>Photos</b><span>JPEG · PNG · WebP · HEIC · HEIF · TIFF · AVIF · GIF</span></div>
+          <div class="fmt__row"><b>RAW</b><span>CR2 · CR3 · NEF · ARW · DNG · RAF · ORF · RW2 · PEF · 3FR · SRW …</span></div>
+          <div class="fmt__row"><b>Video</b><span>MP4 · MOV · MKV · AVI · M4V · WebM · MTS · 3GP …</span></div>
+        </div>
+      </section>
+
+      <!-- FAQ -->
+      <section class="band" id="faq">
+        <div class="band__head">
+          <span class="eyebrow">FAQ</span>
+          <h2 class="band__title">Good questions.</h2>
+        </div>
+        <div class="faq">
+          <details class="faq__q"><summary>Is my data really private?</summary><p>Yes. PhotoPick is 100% client-side — there’s no server to send anything to. Your photos, filenames and picks never leave your device. <a href="/privacy/">Read the details →</a></p></details>
+          <details class="faq__q"><summary>Does it work offline?</summary><p>Once the page has loaded it needs no network. Browsing, starring, zipping and copy/move all happen locally, drive-to-drive.</p></details>
+          <details class="faq__q"><summary>Which browsers are supported?</summary><p>Any modern browser can browse and export. Copying or moving files into a folder uses the File System Access API (Chrome, Edge, Brave, Opera); elsewhere you get the same result via “Download picks (.zip).”</p></details>
+          <details class="faq__q"><summary>Will it change my original files?</summary><p>Never, unless you explicitly choose <b>Move</b> — the one action that deletes originals, and only after they’re safely copied and you’ve confirmed. Everything else is read-only.</p></details>
+          <details class="faq__q"><summary>How many photos can it handle?</summary><p>A single shoot of a few thousand files is smooth. Very large libraries (tens of thousands in one folder) get heavier — point it at an event folder rather than a whole archive.</p></details>
+          <details class="faq__q"><summary>Is it free?</summary><p>Completely. No account, no sign-up, no limits — it’s part of the free <a href="https://toolwizhub.com" target="_blank" rel="noopener">ToolWizHub</a> toolkit, and it’s <a href="https://github.com/sorapallivenkatesh/toolwizhub-photopick" target="_blank" rel="noopener">open source on GitHub</a>. Spot a bug? <a href="https://github.com/sorapallivenkatesh/toolwizhub-photopick/issues" target="_blank" rel="noopener">Open an issue</a>.</p></details>
+        </div>
       </section>
 
       <!-- security / privacy -->
@@ -123,6 +186,19 @@
         <a class="security__link" href="/privacy/">Read the full privacy &amp; security details
           <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
         </a>
+      </section>
+
+      <!-- closing CTA -->
+      <section class="cta">
+        <div class="cta__card">
+          <h2 class="cta__title">Ready to <span class="grad grad--cool">cull your shoot?</span></h2>
+          <p class="cta__sub">Open a folder and start starring — nothing to install, nothing to upload.</p>
+          <button class="btn btn--primary btn--lg" id="pick-btn-2">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+            Choose folder
+          </button>
+          <p class="cta__note">🔒 100% in your browser · free · no account</p>
+        </div>
       </section>
     </section>
 
@@ -251,9 +327,17 @@
       <span>More free tools at</span>
       <img src="assets/logo-horizontal.webp" alt="ToolWizHub" />
     </a>
-    <span class="app-footer__copy">© <span id="year">2026</span> ToolWizHub · <a href="/privacy/">Privacy</a> · 100% local, no tracking.</span>
+    <nav class="app-footer__links">
+      <a href="https://github.com/sorapallivenkatesh/toolwizhub-photopick" target="_blank" rel="noopener" class="app-footer__gh">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M12 .5C5.37.5 0 5.87 0 12.5c0 5.3 3.44 9.8 8.21 11.39.6.11.82-.26.82-.58l-.01-2.05c-3.34.73-4.04-1.61-4.04-1.61-.55-1.39-1.34-1.76-1.34-1.76-1.09-.75.08-.73.08-.73 1.2.09 1.84 1.24 1.84 1.24 1.07 1.83 2.81 1.3 3.5.99.11-.78.42-1.3.76-1.6-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.13-.3-.54-1.52.11-3.18 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 0 1 6 0c2.29-1.55 3.3-1.23 3.3-1.23.65 1.66.24 2.88.12 3.18.77.84 1.23 1.91 1.23 3.22 0 4.61-2.81 5.62-5.49 5.92.43.37.81 1.1.81 2.22l-.01 3.29c0 .32.21.7.82.58A12.01 12.01 0 0 0 24 12.5C24 5.87 18.63.5 12 .5z"/></svg>
+        GitHub
+      </a>
+      <a href="https://github.com/sorapallivenkatesh/toolwizhub-photopick/issues" target="_blank" rel="noopener">Report an issue</a>
+      <a href="/privacy/">Privacy</a>
+    </nav>
+    <span class="app-footer__copy">© <span id="year">2026</span> ToolWizHub · 100% local, no tracking.</span>
   </footer>
 
-  <script type="module" src="js/app.js?v=20260704m"></script>
+  <script type="module" src="js/app.js?v=20260704r"></script>
 </body>
 </html>
