@@ -658,10 +658,19 @@ async function renderLightbox() {
   } catch { if (token === lb.token) lb.stage.innerHTML = `<div class="lb__none">Couldn’t open this file.</div>`; }
 }
 
+/* folder location of an item, relative to the picked folder: "/" for root, "/sub/dir" otherwise */
+function folderPath(it) {
+  const parts = it.path.split("/");
+  parts.pop();                                   // drop the filename
+  if (!state.dirHandle && parts.length) parts.shift(); // fallback paths include the root folder name — drop it
+  return "/" + parts.join("/");
+}
+
 function updateExif(it) {
   const m = state.meta.get(it.id) || {};
   const rows = [];
   const add = (label, val) => { if (val) rows.push(`<div class="exif-row"><span>${label}</span><b>${escapeHtml(String(val))}</b></div>`); };
+  add("Path", folderPath(it));
   if (m.w && m.h) add("Dimensions", `${m.w} × ${m.h}`);
   add("Size", m.size ? humanSize(m.size) : "");
   add("Shutter", m.exposure);
