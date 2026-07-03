@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Privacy &amp; Security — PhotoPick | ToolWizHub</title>
+  <meta name="description" content="PhotoPick runs 100% in your browser. Your photos and videos are read locally and never uploaded to any server. No accounts, no analytics, no trackers." />
+  <meta name="theme-color" content="#0a0a12" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://photopick.toolwizhub.com/privacy/" />
+  <meta property="og:title" content="Privacy &amp; Security — PhotoPick" />
+  <meta property="og:description" content="100% client-side. Your photos, videos, filenames and picks never leave your device." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://photopick.toolwizhub.com/privacy/" />
+  <link rel="icon" type="image/webp" href="/assets/logo-icon.webp" />
+  <link rel="apple-touch-icon" href="/assets/icon-180.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/styles.css?v=20260704l" />
+</head>
+<body>
+  <main class="main">
+    <header class="appbar">
+      <a class="brand" href="/" aria-label="ToolWizHub PhotoPick">
+        <img class="brand__mark" src="/assets/logo-icon.webp" alt="ToolWizHub" width="48" height="48" />
+        <span class="brand__text"><strong>ToolWizHub</strong><span>PHOTOPICK</span></span>
+      </a>
+      <nav class="nav">
+        <a class="nav__link" href="/">← Back to app</a>
+        <span class="nav__pill">🔒 100% Local</span>
+      </nav>
+    </header>
+
+    <section class="legal__hero">
+      <span class="legal__eyebrow">Privacy &amp; Security</span>
+      <h1>Your photos never <span class="grad grad--cool">leave your device.</span></h1>
+      <p class="legal__date">Last updated: 4 July 2026</p>
+    </section>
+
+    <!-- at a glance -->
+    <div class="atglance">
+      <div class="security__grid">
+        <div class="sfeat"><b>No uploads</b><span>Photos, videos and filenames stay on your machine. Nothing is ever transmitted.</span></div>
+        <div class="sfeat"><b>No accounts</b><span>No sign-up, no login, no cookies. Just open the page and go.</span></div>
+        <div class="sfeat"><b>Zero analytics</b><span>No trackers or telemetry — we can’t see your files or your picks.</span></div>
+        <div class="sfeat"><b>Works offline</b><span>Once loaded it needs no network; copy &amp; move happen drive-to-drive.</span></div>
+      </div>
+    </div>
+
+    <article class="legal">
+      <p class="tldr"><strong>TL;DR:</strong> PhotoPick is 100% client-side. Your photos, videos, filenames, and picks stay on your device. Nothing is uploaded, and there are no accounts, servers, or trackers.</p>
+
+      <h2>What PhotoPick does with your files</h2>
+      <p>When you choose a folder, your browser grants PhotoPick permission to read that folder’s files <strong>on your own machine</strong>, using the standard <a href="https://developer.mozilla.org/docs/Web/API/File_System_API" target="_blank" rel="noopener">File System Access API</a> (or a plain folder <code>&lt;input&gt;</code> in browsers without it). PhotoPick reads image, RAW, and video files to build thumbnails and previews, and to read basic metadata — file size, modified date, and EXIF fields such as capture date, camera model, and exposure settings. All of this happens locally in the page. No file, thumbnail, or filename is ever sent anywhere.</p>
+
+      <h2>Starring &amp; exporting your picks</h2>
+      <ul>
+        <li><strong>Filename list (.txt / .csv):</strong> generated in your browser and saved via a normal download. It contains only the paths and metadata of the files you picked.</li>
+        <li><strong>Download ZIP:</strong> your picked files are bundled into a <code>.zip</code> entirely in memory, in the page, then saved as a download. Nothing is uploaded to build it.</li>
+        <li><strong>Copy to folder:</strong> when you choose a destination, your browser asks for write permission to that folder, and PhotoPick copies the selected files directly from source to destination on your device. The bytes never travel over the network.</li>
+        <li><strong>Move to folder:</strong> the same as Copy, and then — after each file is safely copied — the original is deleted from the source folder. This is the only action that modifies your files, so it asks for confirmation and needs your explicit write permission first.</li>
+      </ul>
+
+      <h2>Permissions</h2>
+      <p>Folder access is granted per-session by you, through the browser’s own picker and permission prompts. Reading a folder is read-only by default; write access (for Copy/Move) is requested separately and only when you use those actions. PhotoPick never retains access after you close the tab, and it only ever touches the folders you explicitly choose.</p>
+
+      <h2>Data we collect</h2>
+      <p>None. PhotoPick has no backend, no analytics, no cookies, and no login. There is no server that could receive your data — the entire app is static files served to your browser. We can’t see your folders, your photos, or your selections.</p>
+
+      <h2>Storage on your device</h2>
+      <p>PhotoPick keeps everything in memory for the current session only. A tiny <code>sessionStorage</code> flag is used to remember that you’ve seen the intro splash within the tab; it holds no personal data and is cleared when the tab closes. No service worker or offline cache is installed.</p>
+
+      <h2>Third parties</h2>
+      <p>The only external request the page makes is to Google Fonts for typography. No analytics, ad, or tracking scripts are loaded. If you prefer zero external requests, the app works fully offline once the page has loaded.</p>
+
+      <h2>Contact</h2>
+      <p>PhotoPick is part of <a href="https://toolwizhub.com" target="_blank" rel="noopener">ToolWizHub</a> — a set of free, privacy-first, no-signup web tools. Questions? Reach us through the ToolWizHub site.</p>
+
+      <p style="margin-top:32px"><a class="security__link" href="/"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg> Back to PhotoPick</a></p>
+    </article>
+  </main>
+
+  <footer class="app-footer">
+    <a class="app-footer__brand" href="https://toolwizhub.com" target="_blank" rel="noopener">
+      <span>More free tools at</span>
+      <img src="/assets/logo-horizontal.webp" alt="ToolWizHub" />
+    </a>
+    <span class="app-footer__copy">© <span id="year">2026</span> ToolWizHub · <a href="/">← Back to PhotoPick</a></span>
+  </footer>
+  <script>document.getElementById("year").textContent = new Date().getFullYear();</script>
+</body>
+</html>
