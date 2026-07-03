@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PhotoPick — Cull &amp; shortlist photos from any drive, privately | ToolWizHub</title>
+  <meta name="description" content="Browse photos &amp; videos straight off an external drive, star the keepers, then export a filename list or copy the selected files into a new folder — 100% in your browser. Nothing is ever uploaded." />
+  <meta name="theme-color" content="#0a0a12" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://photopick.toolwizhub.com/" />
+  <meta property="og:title" content="PhotoPick — Cull &amp; shortlist photos from any drive, privately" />
+  <meta property="og:description" content="Browse, star, and export your best shots for the album — locally, straight off your hard drive or pen drive. Nothing is uploaded." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://photopick.toolwizhub.com" />
+  <meta property="og:site_name" content="ToolWizHub" />
+  <meta property="og:image" content="https://photopick.toolwizhub.com/assets/logo-horizontal.webp" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="PhotoPick — Cull &amp; shortlist photos, privately" />
+  <meta name="twitter:description" content="Star the keepers off any drive, then export a filename list or copy them to a new folder. 100% local." />
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org", "@type": "WebApplication", "name": "PhotoPick",
+      "url": "https://photopick.toolwizhub.com/",
+      "description": "Privacy-first photo culling tool — browse media off any drive, shortlist your picks, export filenames or copy files to a new folder, 100% in your browser.",
+      "applicationCategory": "MultimediaApplication", "operatingSystem": "Web",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+      "publisher": { "@type": "Organization", "name": "ToolWizHub", "url": "https://toolwizhub.com" }
+    }
+  </script>
+  <link rel="icon" type="image/webp" href="assets/logo-icon.webp" />
+  <link rel="apple-touch-icon" href="assets/icon-180.png" />
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/styles.css?v=20260704l" />
+  <script>try { if (sessionStorage.getItem("photopick:splashed")) document.documentElement.classList.add("no-splash"); } catch (e) {}</script>
+</head>
+<body>
+  <div class="splash" id="splash" aria-hidden="true">
+    <div class="splash__stage">
+      <div class="splash__glow"></div>
+      <div class="splash__sparkles"><span></span><span></span><span></span><span></span><span></span><span></span></div>
+      <img class="splash__logo" src="assets/logo-full.webp" alt="ToolWizHub" width="200" height="200" />
+      <div class="splash__tagline">PhotoPick</div>
+      <div class="splash__bar"><span></span></div>
+    </div>
+  </div>
+
+  <main class="main">
+    <!-- ===== APPBAR (welcome only) ===== -->
+    <header class="appbar" id="appbar">
+      <a class="brand" href="https://toolwizhub.com" aria-label="ToolWizHub PhotoPick">
+        <img class="brand__mark" src="assets/logo-icon.webp" alt="ToolWizHub" width="48" height="48" />
+        <span class="brand__text"><strong>ToolWizHub</strong><span>PHOTOPICK</span></span>
+      </a>
+      <nav class="nav">
+        <a class="nav__link" href="#features">Features</a>
+        <a class="nav__link" href="#how">How it works</a>
+        <a class="nav__link" href="#security">Security</a>
+        <span class="nav__pill">🔒 100% Local</span>
+      </nav>
+    </header>
+
+    <!-- unsupported-browser notice -->
+    <section class="unsupported" id="unsupported" hidden>
+      <h2>Can’t open local folders here</h2>
+      <p id="unsupported-msg"></p>
+    </section>
+
+    <!-- ===== LANDING / WELCOME ===== -->
+    <section id="picker">
+      <section class="hero">
+        <h1 class="hero__title">Cull a <span class="grad grad--warm">shoot</span><br>in <span class="grad grad--cool">minutes.</span></h1>
+        <p class="hero__sub">Open any folder, star the keepers, skip the rest — all in your browser. No upload, no import, no waiting.</p>
+        <div class="hero__cta">
+          <button class="btn btn--primary btn--lg" id="pick-btn">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+            Choose folder
+          </button>
+          <input type="file" id="dir-input" webkitdirectory directory multiple hidden />
+        </div>
+        <p class="hero__note">🔒 100% in your browser, nothing uploaded</p>
+      </section>
+
+      <!-- feature cards -->
+      <section class="features" id="features">
+        <article class="fcard">
+          <span class="fcard__ico fcard__ico--a">⚡</span>
+          <h3>Blazing fast</h3>
+          <p>Runs from your local drive. No cloud latency, no uploading, no waiting for thumbnails to generate.</p>
+        </article>
+        <article class="fcard">
+          <span class="fcard__ico fcard__ico--b">🛡️</span>
+          <h3>Privacy first</h3>
+          <p>Your creative work is yours. Files never leave your device, ensuring total privacy for sensitive client projects.</p>
+        </article>
+        <article class="fcard">
+          <span class="fcard__ico fcard__ico--c">✦</span>
+          <h3>Pro workflow</h3>
+          <p>Pick, export, and deliver. Designed by photographers for photographers who value their time and artistic vision.</p>
+        </article>
+      </section>
+
+      <!-- product preview -->
+      <section class="preview" id="how">
+        <img class="preview__img" src="assets/preview.jpg?v=20260704l" alt="PhotoPick screens — welcome, gallery grid, lightbox, and empty state" width="1721" height="914" loading="lazy" />
+      </section>
+
+      <!-- security / privacy -->
+      <section class="security" id="security">
+        <div class="security__head">
+          <span class="security__badge"><svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg></span>
+          <h2 class="security__title">Private by design. <span class="grad grad--cool">Nothing leaves your device.</span></h2>
+          <p class="security__sub">PhotoPick runs entirely in your browser. Your folders are read straight from your drive and never uploaded — there’s no server to send them to.</p>
+        </div>
+        <div class="security__grid">
+          <div class="sfeat"><b>No uploads</b><span>Photos, videos and filenames stay on your machine. Nothing is transmitted.</span></div>
+          <div class="sfeat"><b>No accounts</b><span>No sign-up, no login, no cookies. Just open the page and go.</span></div>
+          <div class="sfeat"><b>Zero analytics</b><span>No trackers or telemetry — we can’t see your files or your picks.</span></div>
+          <div class="sfeat"><b>Works offline</b><span>Once loaded it needs no network; copy &amp; move happen drive-to-drive.</span></div>
+        </div>
+        <a class="security__link" href="/privacy/">Read the full privacy &amp; security details
+          <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+      </section>
+    </section>
+
+    <!-- ===== WORKBENCH / GALLERY (hidden until a folder loads) ===== -->
+    <section class="workbench" id="workbench" hidden>
+      <!-- sidebar -->
+      <aside class="side">
+        <a class="side__brand" href="https://toolwizhub.com" aria-label="ToolWizHub PhotoPick">
+          <img src="assets/logo-icon.webp" alt="ToolWizHub" width="34" height="34" />
+          <b>PhotoPick</b>
+        </a>
+        <div class="side__label">Workspace</div>
+        <nav class="side__nav" id="side-nav">
+          <button class="snav on" data-nav="library"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg> <span>Library</span> <b class="snav__n" id="snav-lib">0</b></button>
+          <button class="snav" data-nav="picks"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15 8.5 22 9.3 17 14 18.2 21 12 17.7 5.8 21 7 14 2 9.3 9 8.5 12 2"/></svg> <span>Picks</span> <b class="snav__n snav__n--pick" id="snav-pk">0</b></button>
+        </nav>
+        <div class="side__foot">
+          <button class="btn btn--primary" id="import-btn">Import Photos</button>
+        </div>
+      </aside>
+
+      <!-- work area -->
+      <div class="work">
+        <div class="wtop">
+          <div class="wtopbar">
+            <div class="wtabs" id="filters">
+              <button class="fbtn on" data-filter="all">All <b id="c-all">0</b></button>
+              <button class="fbtn" data-filter="image">Photos <b id="c-image">0</b></button>
+              <button class="fbtn" data-filter="video">Videos <b id="c-video">0</b></button>
+              <button class="fbtn" data-filter="raw">RAW <b id="c-raw">0</b></button>
+              <button class="fbtn fbtn--pick" data-filter="picked">★ Picks <b id="c-picked">0</b></button>
+            </div>
+            <div class="wtopbar__right">
+              <input type="search" id="search" class="search" placeholder="Search filename…" autocomplete="off" spellcheck="false" />
+              <span class="localtag" title="Everything runs locally — nothing is uploaded"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> Local</span>
+              <a class="iconbtn" href="/privacy/" target="_blank" rel="noopener" title="Privacy &amp; security" aria-label="Privacy &amp; security"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg></a>
+            </div>
+          </div>
+
+          <div class="wtoolbar">
+            <div class="wtoolbar__folder">
+              <span class="wfolder"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg><span id="folder-name">folder</span></span>
+              <button class="btn btn--ghost btn--sm" id="change-btn">Change</button>
+            </div>
+            <div class="wtoolbar__view">
+              <div class="segmented" id="view-toggle">
+                <button class="seg on" data-view="grid" title="Grid view" aria-label="Grid view"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg></button>
+                <button class="seg" data-view="list" title="List view" aria-label="List view"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg></button>
+              </div>
+              <label class="selwrap">Sort
+                <select id="sort" class="sel">
+                  <option value="date">Capture time</option>
+                  <option value="name">Name</option>
+                  <option value="mtime">Modified</option>
+                  <option value="size">Size</option>
+                </select>
+              </label>
+              <label class="selwrap">Size
+                <select id="thumbsize" class="sel">
+                  <option value="s" selected>Small</option>
+                  <option value="m">Medium</option>
+                  <option value="l">Large</option>
+                </select>
+              </label>
+            </div>
+          </div>
+          <div class="write-note" id="write-note" hidden></div>
+        </div>
+
+        <div class="grid" id="grid" tabindex="0" aria-label="Media grid"></div>
+        <div class="grid-empty" id="grid-empty" hidden>Nothing matches this filter.</div>
+        <div class="scanning" id="scanning" hidden><span class="spin"></span> <span id="scan-text">Scanning folder…</span></div>
+
+        <!-- floating action bar -->
+        <div class="actionbar" id="actionbar">
+          <div class="actionbar__count">
+            <b id="pick-status">No picks yet</b>
+          </div>
+          <span class="ab-sep"></span>
+          <button class="ab-btn" id="sel-all" title="Select all shown">Select all</button>
+          <button class="ab-btn" id="sel-none" title="Clear picks">Clear</button>
+          <span class="ab-sep"></span>
+          <button class="ab-btn" id="exp-txt">Export .txt</button>
+          <button class="ab-btn" id="exp-csv">Export .csv</button>
+          <button class="ab-btn" id="exp-copy">Copy to folder…</button>
+          <button class="ab-btn" id="exp-move">Move…</button>
+          <button class="ab-btn ab-btn--primary" id="exp-zip">Download ZIP</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ===== LIGHTBOX ===== -->
+  <div class="lightbox" id="lightbox" hidden>
+    <button class="lb__nav lb__nav--prev" id="lb-prev" aria-label="Previous">‹</button>
+    <div class="lb__stage" id="lb-stage"></div>
+    <button class="lb__nav lb__nav--next" id="lb-next" aria-label="Next">›</button>
+
+    <!-- right info panel -->
+    <aside class="lb__panel" id="lb-panel">
+      <header class="lb__phead">
+        <b id="lb-name">—</b>
+        <button class="lb__close" id="lb-close" aria-label="Close">✕</button>
+      </header>
+      <div class="lb__count" id="lb-count"></div>
+      <div class="lb__exif" id="lb-exif"></div>
+    </aside>
+
+    <!-- floating toolbar -->
+    <div class="lb__bar">
+      <button class="lb__act" id="lb-grid" title="Back to grid (Esc)"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg><span>Grid</span></button>
+      <button class="lb__act lb__act--icon" id="lb-zout" title="Zoom out (−)"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.5" y2="16.5"/><line x1="8" y1="11" x2="14" y2="11"/></svg></button>
+      <button class="lb__act lb__act--icon" id="lb-zin" title="Zoom in (+)"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.5" y2="16.5"/><line x1="8" y1="11" x2="14" y2="11"/><line x1="11" y1="8" x2="11" y2="14"/></svg></button>
+      <button class="lb__act" id="lb-download" title="Download this file"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg><span>Download</span></button>
+      <button class="lb__star" id="lb-pick" title="Pick (S / Space)" aria-label="Pick">★</button>
+      <button class="lb__act" id="lb-info" title="Toggle details (I)"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg><span>Details</span></button>
+    </div>
+
+    <!-- filmstrip -->
+    <div class="lb__strip" id="lb-strip"></div>
+  </div>
+
+  <!-- ===== FOOTER (welcome only) ===== -->
+  <footer class="app-footer" id="site-footer">
+    <a class="app-footer__brand" href="https://toolwizhub.com" target="_blank" rel="noopener">
+      <span>More free tools at</span>
+      <img src="assets/logo-horizontal.webp" alt="ToolWizHub" />
+    </a>
+    <span class="app-footer__copy">© <span id="year">2026</span> ToolWizHub · <a href="/privacy/">Privacy</a> · 100% local, no tracking.</span>
+  </footer>
+
+  <script type="module" src="js/app.js?v=20260704l"></script>
+</body>
+</html>
