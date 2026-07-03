@@ -22,9 +22,12 @@ export function kindOf(name) {
   return null;
 }
 
-/* Prompt for a source folder to browse. */
+/* Prompt for a source folder to browse. Requested read-write so that Copy/Move
+   (which delete originals) work in a single gesture later — otherwise the write
+   prompt can't appear after the destination picker consumes the user activation.
+   If the user grants view-only, Move gracefully degrades to a copy. */
 export async function pickSourceDir() {
-  return window.showDirectoryPicker({ id: "photopick-src", mode: "read" });
+  return window.showDirectoryPicker({ id: "photopick-src", mode: "readwrite" });
 }
 
 /* Prompt for a destination folder to copy picks into. */
