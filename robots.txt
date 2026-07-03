@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://photopick.toolwizhub.com/sitemap.xml

@@ -1,0 +1,10 @@
+{
+  "name": "toolwizhub-photopick",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "PhotoPick — privacy-first photo culling tool: browse media off any drive, shortlist picks, export a filename list or copy files to a new folder, 100% in your browser.",
+  "scripts": {
+    "site": "python3 -m http.server 8095"
+  }
+}
