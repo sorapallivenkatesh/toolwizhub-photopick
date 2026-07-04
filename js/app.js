@@ -111,10 +111,7 @@ function showUnsupported() {
 }
 
 /* ---- open + scan a folder ---- */
-async function openViaFsAccess() {
-  let handle;
-  try { handle = await pickSourceDir(); }
-  catch { return; } // user cancelled
+async function scanHandle(handle) {
   state.dirHandle = handle;
   state.canCopy = true;
   enterWorkbench(handle.name || "folder");
@@ -127,6 +124,35 @@ async function openViaFsAccess() {
   }
   finishLoad();
 }
+
+async function openViaFsAccess() {
+  let handle;
+  try { handle = await pickSourceDir(); }
+  catch { return; } // user cancelled
+  scanHandle(handle);
+}
+
+/* ---- drag & drop a folder onto the page ---- */
+function dtHasFiles(e) { return e.dataTransfer && Array.from(e.dataTransfer.types || []).includes("Files"); }
+let dragDepth = 0;
+window.addEventListener("dragenter", (e) => { if (!dtHasFiles(e)) return; e.preventDefault(); if (dragDepth++ === 0) document.body.classList.add("dragging"); });
+window.addEventListener("dragover", (e) => { if (dtHasFiles(e)) e.preventDefault(); });
+window.addEventListener("dragleave", (e) => { if (!dtHasFiles(e)) return; if (--dragDepth <= 0) { dragDepth = 0; document.body.classList.remove("dragging"); } });
+window.addEventListener("drop", async (e) => {
+  if (!dtHasFiles(e)) return;
+  e.preventDefault(); dragDepth = 0; document.body.classList.remove("dragging");
+  const item = e.dataTransfer.items && e.dataTransfer.items[0];
+  // Chromium: a dropped folder yields a directory handle → open it directly (same as the picker)
+  if (FS_ACCESS && item && item.getAsFileSystemHandle) {
+    let h = null;
+    try { h = await item.getAsFileSystemHandle(); } catch {}
+    if (h && h.kind === "directory") { try { await ensureWritable(h); } catch {} return scanHandle(h); }
+    if (h && h.kind === "file") { showDropHint("Drop a whole folder, not a single file."); return; }
+  }
+  // other browsers can't hand us a folder from a drop — nudge to the picker
+  showDropHint("Drag-drop needs Chrome/Edge/Brave — use “Choose folder” instead.");
+});
+function showDropHint(msg) { const n = $("#drop-hint"); if (n) { n.textContent = msg; n.classList.add("show"); setTimeout(() => n.classList.remove("show"), 3200); } }
 
 function openViaInput(fileList) {
   state.dirHandle = null;
@@ -432,16 +458,43 @@ $("#side-nav")?.addEventListener("click", (e) => {
   if (b.dataset.nav === "folders") { openFolder(); return; }
   setFilter(b.dataset.nav === "picks" ? "picked" : "all");
 });
+/* ---- preferences persistence (sort / size / view) ---- */
+const PREFS = "photopick:prefs";
+function savePrefs() {
+  try { localStorage.setItem(PREFS, JSON.stringify({ sort: state.sort, thumbsize: state.thumbsize, view: els.grid.dataset.view || "grid" })); } catch {}
+}
+(function restorePrefs() {
+  let p; try { p = JSON.parse(localStorage.getItem(PREFS) || "{}"); } catch { p = {}; }
+  if (["name", "date", "mtime", "size"].includes(p.sort)) { state.sort = p.sort; els.sort.value = p.sort; }
+  if (["s", "m", "l"].includes(p.thumbsize)) { state.thumbsize = p.thumbsize; els.thumbsize.value = p.thumbsize; }
+  const view = p.view === "list" ? "list" : "grid";
+  els.grid.dataset.view = view;
+  for (const s of document.querySelectorAll("#view-toggle .seg")) s.classList.toggle("on", s.dataset.view === view);
+})();
+
 /* grid / list view toggle */
 $("#view-toggle")?.addEventListener("click", (e) => {
   const b = e.target.closest(".seg"); if (!b) return;
   for (const s of e.currentTarget.querySelectorAll(".seg")) s.classList.toggle("on", s === b);
-  els.grid.dataset.view = b.dataset.view;
+  els.grid.dataset.view = b.dataset.view; savePrefs();
 });
 $("#import-btn")?.addEventListener("click", openFolder);
+
+/* ---- keyboard shortcuts overlay ---- */
+const kbdHelp = $("#kbd-help");
+function toggleKbdHelp(show) { if (kbdHelp) kbdHelp.hidden = show === undefined ? !kbdHelp.hidden : !show; }
+$("#kbd-btn")?.addEventListener("click", () => toggleKbdHelp());
+$("#kbd-close")?.addEventListener("click", () => toggleKbdHelp(false));
+kbdHelp?.addEventListener("click", (e) => { if (e.target === kbdHelp) toggleKbdHelp(false); });
+document.addEventListener("keydown", (e) => {
+  const tag = (e.target.tagName || "").toLowerCase();
+  if (tag === "input" || tag === "select" || tag === "textarea") return;
+  if (e.key === "?") { e.preventDefault(); toggleKbdHelp(); }
+  else if (e.key === "Escape" && kbdHelp && !kbdHelp.hidden) { e.stopPropagation(); toggleKbdHelp(false); }
+});
 els.search.addEventListener("input", () => { state.search = els.search.value; applyView(); });
-els.sort.addEventListener("change", () => { state.sort = els.sort.value; applyView(); });
-els.thumbsize.addEventListener("change", () => { state.thumbsize = els.thumbsize.value; els.grid.dataset.size = state.thumbsize; });
+els.sort.addEventListener("change", () => { state.sort = els.sort.value; applyView(); savePrefs(); });
+els.thumbsize.addEventListener("change", () => { state.thumbsize = els.thumbsize.value; els.grid.dataset.size = state.thumbsize; savePrefs(); });
 $("#change-btn").addEventListener("click", openFolder);
 
 $("#sel-all").addEventListener("click", () => {

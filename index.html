@@ -13,10 +13,13 @@
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://photopick.toolwizhub.com" />
   <meta property="og:site_name" content="ToolWizHub" />
-  <meta property="og:image" content="https://photopick.toolwizhub.com/assets/logo-horizontal.webp" />
+  <meta property="og:image" content="https://photopick.toolwizhub.com/assets/preview.jpg?v=20260704s" />
+  <meta property="og:image:width" content="1672" />
+  <meta property="og:image:height" content="941" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="PhotoPick — Cull &amp; shortlist photos, privately" />
   <meta name="twitter:description" content="Star the keepers off any drive, then export a filename list or copy them to a new folder. 100% local." />
+  <meta name="twitter:image" content="https://photopick.toolwizhub.com/assets/preview.jpg?v=20260704s" />
   <script type="application/ld+json">
     {
       "@context": "https://schema.org", "@type": "WebApplication", "name": "PhotoPick",
@@ -28,12 +31,13 @@
     }
   </script>
   <link rel="icon" type="image/webp" href="assets/logo-icon.webp" />
+  <link rel="icon" type="image/png" sizes="192x192" href="assets/icon-192.png" />
   <link rel="apple-touch-icon" href="assets/icon-180.png" />
   <link rel="manifest" href="manifest.webmanifest" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/styles.css?v=20260704r" />
+  <link rel="stylesheet" href="css/styles.css?v=20260704s" />
   <script>try { if (sessionStorage.getItem("photopick:splashed")) document.documentElement.classList.add("no-splash"); } catch (e) {}</script>
 </head>
 <body>
@@ -84,6 +88,7 @@
           </button>
           <input type="file" id="dir-input" webkitdirectory directory multiple hidden />
         </div>
+        <p class="hero__drop">…or drag &amp; drop a folder here</p>
         <p class="hero__note">🔒 100% in your browser, nothing uploaded</p>
       </section>
 
@@ -108,7 +113,7 @@
 
       <!-- product preview -->
       <section class="preview">
-        <img class="preview__img" src="assets/preview.jpg?v=20260704r" alt="PhotoPick screens — landing, workbench grid, lightbox, and empty state" width="1672" height="941" loading="lazy" />
+        <img class="preview__img" src="assets/preview.jpg?v=20260704s" alt="PhotoPick screens — landing, workbench grid, lightbox, and empty state" width="1672" height="941" loading="lazy" />
       </section>
 
       <!-- how it works -->
@@ -234,6 +239,7 @@
             <div class="wtopbar__right">
               <input type="search" id="search" class="search" placeholder="Search filename…" autocomplete="off" spellcheck="false" />
               <span class="localtag" title="Everything runs locally — nothing is uploaded"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> Local</span>
+              <button class="iconbtn" id="kbd-btn" type="button" title="Keyboard shortcuts (?)" aria-label="Keyboard shortcuts"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="20" height="12" rx="2"/><path d="M6 10h.01M10 10h.01M14 10h.01M18 10h.01M8 14h8"/></svg></button>
               <a class="iconbtn" href="/privacy/" target="_blank" rel="noopener" title="Privacy &amp; security" aria-label="Privacy &amp; security"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg></a>
             </div>
           </div>
@@ -338,6 +344,32 @@
     <span class="app-footer__copy">© <span id="year">2026</span> ToolWizHub · 100% local, no tracking.</span>
   </footer>
 
-  <script type="module" src="js/app.js?v=20260704r"></script>
+  <!-- drag-to-open veil + hint toast -->
+  <div class="dropveil" id="dropveil" aria-hidden="true">
+    <div class="dropveil__box">
+      <svg viewBox="0 0 24 24" width="34" height="34" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+      <b>Drop a folder to open it</b>
+    </div>
+  </div>
+  <div class="drop-hint" id="drop-hint" role="status" aria-live="polite"></div>
+
+  <!-- keyboard shortcuts -->
+  <div class="kbd-help" id="kbd-help" hidden>
+    <div class="kbd-help__card">
+      <header class="kbd-help__head"><b>Keyboard shortcuts</b><button class="lb__close" id="kbd-close" aria-label="Close">✕</button></header>
+      <div class="kbd-help__grid">
+        <div><span><kbd>←</kbd> <kbd>→</kbd></span><em>Previous / next photo</em></div>
+        <div><span><kbd>Space</kbd> / <kbd>S</kbd></span><em>Star / unstar</em></div>
+        <div><span><kbd>Enter</kbd></span><em>Open in lightbox (grid)</em></div>
+        <div><span><kbd>F</kbd></span><em>Star the hovered thumbnail (grid)</em></div>
+        <div><span><kbd>+</kbd> <kbd>−</kbd> <kbd>0</kbd></span><em>Zoom in / out / reset</em></div>
+        <div><span><kbd>I</kbd></span><em>Toggle the details panel</em></div>
+        <div><span><kbd>Esc</kbd></span><em>Close the lightbox</em></div>
+        <div><span><kbd>?</kbd></span><em>Show this help</em></div>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="js/app.js?v=20260704s"></script>
 </body>
 </html>
